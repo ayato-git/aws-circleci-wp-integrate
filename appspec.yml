@@ -1,10 +1,10 @@
 version: 0.0
 os: linux
 files:
-  - source: /LICENSE
+  - source: /checker.html
     destination: /home/kusanagi/aws-study.ideabb.jp/DocumentRoot/
 permissions:
-  - object: /home/kusanagi/aws-study.ideabb.jp/DocumentRoot/LICENSE
+  - object: /home/kusanagi/aws-study.ideabb.jp/DocumentRoot/checker.html
     pattern: "**"
     owner: kusanagi
     group: kusanagi
