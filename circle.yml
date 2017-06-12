@@ -21,13 +21,13 @@ deployment:
   staging:
     branch: master
     codedeploy:
-      aws-study-kusanagi:
+      aws-study-aws-study-staticHTML:
         application_root: /
         region: us-east-2
         revision_location:
           revision_type: S3
           s3_location:
             bucket: codedeploy-for-aws-study
-            key_pattern: aws-study-kusanagi-{BRANCH}-{SHORT_COMMIT}.zip
-        deployment_group: aws-study-kusanagi-deploygroup
+            key_pattern: aws-study-staticHTML-{BRANCH}-{SHORT_COMMIT}.zip
+        deployment_group: aws-study-staticHTML-deploygroup
         deployment_config: CodeDeployDefault.OneAtATime
