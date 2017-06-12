@@ -1,0 +1,14 @@
+deployment:
+  staging:
+    branch: master
+    codedeploy:
+      aws-study-kusanagi:
+        application_root: /
+        region: us-east-2
+        revision_location:
+          revision_type: S3
+          s3_location:
+            bucket: codedeploy-for-aws-study
+            key_pattern: aws-study-kusanagi-{BRANCH}-{SHORT_COMMIT}
+        deployment_group: aws-study-kusanagi-deploygroup
+        deployment_config: CodeDeployDefault.OneAtATime
