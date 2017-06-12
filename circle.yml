@@ -21,7 +21,7 @@ deployment:
   staging:
     branch: master
     codedeploy:
-      aws-study-aws-study-staticHTML:
+      aws-study-staticHTML:
         application_root: /
         region: us-east-2
         revision_location:
