@@ -1,0 +1,11 @@
+version: 0.0
+os: linux
+files:
+  - source: /LICENSE
+    destination: /home/kusanagi/aws-study.ideabb.jp/DocumentRoot/
+permissions:
+  - object: /home/kusanagi/aws-study.ideabb.jp/DocumentRoot/LICENSE
+    pattern: "**"
+    owner: kusanagi
+    group: kusanagi
+    mode: 444
