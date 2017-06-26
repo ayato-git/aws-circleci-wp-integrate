@@ -2,6 +2,7 @@ general:
   branches:
     only:
       - master
+      - staging
 
 machine:
   timezone:
@@ -18,7 +19,7 @@ test:
     - exit 0
 
 deployment:
-  staging:
+  master:
     branch: master
     codedeploy:
       aws-study-kusanagi:
@@ -30,4 +31,17 @@ deployment:
             bucket: codedeploy-for-aws-study
             key_pattern: aws-study-kusanagi-{BRANCH}-{SHORT_COMMIT}.zip
         deployment_group: aws-study-kusanagi-deploygroup
+        deployment_config: CodeDeployDefault.OneAtATime
+  staging:
+    branch: staging
+    codedeploy:
+      aws-study-staticHTML:
+        application_root: /
+        region: us-east-2
+        revision_location:
+          revision_type: S3
+          s3_location:
+            bucket: codedeploy-for-aws-study
+            key_pattern: aws-study-staticHTML-{BRANCH}-{SHORT_COMMIT}.zip
+        deployment_group: aws-study-staticHTML-deploygroup
         deployment_config: CodeDeployDefault.OneAtATime
