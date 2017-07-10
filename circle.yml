@@ -35,7 +35,7 @@ deployment:
   staging:
     branch: staging
     commands:
-      - echo 'here is circle.yml' >> ./checker.html
+      - echo 'here is circle.yml' >> /home/kusanagi/aws-study.ideabb.jp/DocumentRoot/checker2-before.html
     codedeploy:
       aws-study-kusanagi:
         application_root: /
