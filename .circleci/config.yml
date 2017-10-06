@@ -12,13 +12,14 @@ jobs:
       - run:
           name: 現在地表示
           command: pwd
-      - run: pip install awscli --upgrade --user
+      - run: python --version && curl -kL https://bootstrap.pypa.io/get-pip.py | python && pip --version
+      - run: pip install awscli --upgrade
       - run: aws --version
       - run:
           name: Setup AWS credentials
           command: |
             mkdir -p ~/.aws
-            printf "[default]\naws_access_key_id = ${AWS_ACCESS_KEY_ID}\naws_secret_access_key = ${AWS_SECRET_ACCESS_KEY}" > ~/.aws/config
+            printf "[default]\naws_access_key_id = ${AWS_ACCESS_KEY_ID}\naws_secret_access_key = ${AWS_SECRET_ACCESS_KEY}\nregion = ap-northeast-1" > ~/.aws/config
             printf "[default]\naws_access_key_id = ${AWS_ACCESS_KEY_ID}\naws_secret_access_key = ${AWS_SECRET_ACCESS_KEY}" > ~/.aws/credentials
             chmod 600 ~/.aws/*
       - deploy:
