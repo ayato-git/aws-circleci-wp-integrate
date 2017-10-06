@@ -27,8 +27,10 @@ jobs:
           command: |
               aws deploy push \
                   --application-name aws-study-staticHTML \
-                  --s3-location s3://codedeploy-for-aws-study/circleci-2.zip
+                  --s3-location s3://codedeploy-for-aws-study/circleci-2.zip \
+                  --region us-east-2
               aws deploy create-deployment \
                   --application-name aws-study-staticHTML \
                   --s3-location bucket=codedeploy-for-aws-study,key=circleci-2.zip,bundleType=zip \
-                  --deployment-group-name aws-study-staticHTML-deploygroup
+                  --deployment-group-name aws-study-staticHTML-deploygroup \
+                  --region us-east-2
