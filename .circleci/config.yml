@@ -1,0 +1,37 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: amazonlinux
+    working_directory: /user/circleci/
+    steps:
+      - checkout
+      - run:
+          name: ファイル表示
+          command: ls -lh
+      - run:
+          name: 現在地表示
+          command: pwd
+      - run:
+          name: zip圧縮
+          command: 
+      - run: pip install awscli --upgrade --user
+      - run: aws --version
+      - run:
+          name: Setup AWS credentials
+          command: |
+            mkdir -p ~/.aws
+            printf "[default]\naws_access_key_id = ${AWS_ACCESS_KEY_ID}\naws_secret_access_key = ${AWS_SECRET_ACCESS_KEY}" > ~/.aws/config
+            printf "[default]\naws_access_key_id = ${AWS_ACCESS_KEY_ID}\naws_secret_access_key = ${AWS_SECRET_ACCESS_KEY}" > ~/.aws/credentials
+            chmod 600 ~/.aws/*
+      - deploy:
+          name: Deploy to S3
+          command: |
+              aws deploy push \
+                  --application-name aws-study-staticHTML \
+                  --s3-location s3://codedeploy-for-aws-study/circleci-2.zip \
+                  --source ./checker.html
+              aws deploy create-deployment \
+                  --application-name aws-study-staticHTML \
+                  --s3-location bucket=codedeploy-for-aws-study,key=circleci-2.zip,bundleType=zip \
+                  --deployment-group-name aws-study-staticHTML-deploygroup
