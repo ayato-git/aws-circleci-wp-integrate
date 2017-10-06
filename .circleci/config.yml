@@ -27,8 +27,7 @@ jobs:
           command: |
               aws deploy push \
                   --application-name aws-study-staticHTML \
-                  --s3-location s3://codedeploy-for-aws-study/circleci-2.zip \
-                  --source ./checker.html
+                  --s3-location s3://codedeploy-for-aws-study/circleci-2.zip
               aws deploy create-deployment \
                   --application-name aws-study-staticHTML \
                   --s3-location bucket=codedeploy-for-aws-study,key=circleci-2.zip,bundleType=zip \
