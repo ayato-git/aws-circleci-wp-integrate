@@ -2,9 +2,9 @@ version: 0.0
 os: linux
 files:
   - source: /checker.html
-    destination: /home/kusanagi/aws-study.ideabb.jp/DocumentRoot/
+    destination: /usr/share/nginx/html/
 permissions:
-  - object: /home/kusanagi/aws-study.ideabb.jp/DocumentRoot/checker.html
+  - object: /usr/share/nginx/html/checker.html
     pattern: "**"
     owner: kusanagi
     group: kusanagi
