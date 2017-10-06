@@ -12,9 +12,6 @@ jobs:
       - run:
           name: 現在地表示
           command: pwd
-      - run:
-          name: zip圧縮
-          command: 
       - run: pip install awscli --upgrade --user
       - run: aws --version
       - run:
