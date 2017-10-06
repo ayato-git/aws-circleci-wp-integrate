@@ -6,6 +6,6 @@ files:
 permissions:
   - object: /usr/share/nginx/html/checker.html
     pattern: "**"
-    owner: kusanagi
-    group: kusanagi
+    owner: ec2-user
+    group: ec2-user
     mode: 444
