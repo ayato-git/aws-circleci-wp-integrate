@@ -7,14 +7,11 @@ jobs:
     steps:
       - checkout
       - run:
-          name: ファイル表示
-          command: ls -lh
-      - run:
-          name: 現在地表示
-          command: pwd
-      - run: python --version && curl -kL https://bootstrap.pypa.io/get-pip.py | python && pip --version
-      - run: pip install awscli --upgrade
-      - run: aws --version
+          name: Setup AWS-CLI
+          command: |
+            curl -kL https://bootstrap.pypa.io/get-pip.py | python
+            pip install awscli --upgrade
+            aws --version
       - run:
           name: Setup AWS credentials
           command: |
@@ -22,15 +19,26 @@ jobs:
             printf "[default]\naws_access_key_id = ${AWS_ACCESS_KEY_ID}\naws_secret_access_key = ${AWS_SECRET_ACCESS_KEY}\nregion = ap-northeast-1" > ~/.aws/config
             printf "[default]\naws_access_key_id = ${AWS_ACCESS_KEY_ID}\naws_secret_access_key = ${AWS_SECRET_ACCESS_KEY}" > ~/.aws/credentials
             chmod 600 ~/.aws/*
+      # - deploy:
+      #     name: push to S3
+      #     command: |
+      #         aws deploy push \
+      #             --application-name aws-study-staticHTML \
+      #             --s3-location s3://codedeploy-for-aws-study/circleci-2.zip \
+      #             --region us-east-2
+      # - deploy:
+      #     name: Deploy to EC2
+      #     command: |
+      #         aws deploy create-deployment \
+      #             --application-name aws-study-staticHTML \
+      #             --s3-location bucket=codedeploy-for-aws-study,key=circleci-2.zip,bundleType=zip \
+      #             --deployment-group-name aws-study-staticHTML-deploygroup \
+      #             --region us-east-2
       - deploy:
-          name: Deploy to S3
+          name: Deploy to EC2
           command: |
-              aws deploy push \
-                  --application-name aws-study-staticHTML \
-                  --s3-location s3://codedeploy-for-aws-study/circleci-2.zip \
-                  --region us-east-2
+              GITHUB_REPO=`echo $CIRCLE_REPOSITORY_URL | sed -e 's/git@github.com://' `
               aws deploy create-deployment \
                   --application-name aws-study-staticHTML \
-                  --s3-location bucket=codedeploy-for-aws-study,key=circleci-2.zip,bundleType=zip \
+                  --github-location repository=$(GITHUB_REPO),commitId=$(CIRCLE_SHA1)
                   --deployment-group-name aws-study-staticHTML-deploygroup \
-                  --region us-east-2
