@@ -41,4 +41,4 @@ jobs:
               aws deploy create-deployment \
                   --application-name aws-study-staticHTML \
                   --github-location repository=${GITHUB_REPO},commitId=${CIRCLE_SHA1}
-                  --deployment-group-name aws-study-staticHTML-deploygroup \
+                  --deployment-group-name aws-study-staticHTML-deploygroup
