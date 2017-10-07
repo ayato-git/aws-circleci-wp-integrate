@@ -40,5 +40,5 @@ jobs:
               GITHUB_REPO=`echo $CIRCLE_REPOSITORY_URL | sed -e 's/git@github.com://' `
               aws deploy create-deployment \
                   --application-name aws-study-staticHTML \
-                  --github-location repository=$(GITHUB_REPO),commitId=$(CIRCLE_SHA1)
+                  --github-location repository=${GITHUB_REPO},commitId=${CIRCLE_SHA1}
                   --deployment-group-name aws-study-staticHTML-deploygroup \
