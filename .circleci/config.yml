@@ -42,10 +42,10 @@ jobs:
           name: Deploy to EC2
           command: |
               GITHUB_REPO=`echo $CIRCLE_REPOSITORY_URL | sed -e 's/git@github.com://' | sed -e 's/.git$//' `
-              aws deploy create-deployment \
+              DEPLOYMENTID=`aws deploy create-deployment \
                   --application-name StartByCircleCI \
                   --github-location repository=${GITHUB_REPO},commitId=${CIRCLE_SHA1} \
                   --deployment-group-name ${CIRCLE_BRANCH}-group \
                   --region ap-northeast-1 \
-                  --query 'deploymentId' --output text >> DEPLOYMENTID
-              aws deploy wait deployment-successful --deployment-id $DEPLOYMENTID
+                  --query 'deploymentId' --output text`
+              aws deploy wait deployment-successful --region ap-northeast-1 --deployment-id $DEPLOYMENTID
