@@ -3,6 +3,7 @@ general:
     only:
       - master
       - staging
+      - circleci2.0
 
 machine:
   timezone:
