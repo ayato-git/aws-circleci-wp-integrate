@@ -1,9 +1,13 @@
 version: 2
 jobs:
-  build:
+  get_aws-cli_and_deploy:
+    branches:
+      only:
+        - master
+        - staging
     docker:
-      - image: amazonlinux
-    working_directory: /user/circleci/
+      - image: circleci/php:5.6.30-apache
+    working_directory: ~/circleci/
     steps:
       - checkout
       - run:
@@ -12,13 +16,13 @@ jobs:
             curl -kL https://bootstrap.pypa.io/get-pip.py | python
             pip install awscli --upgrade
             aws --version
-      - run:
-          name: Setup AWS credentials
-          command: |
-            mkdir -p ~/.aws
-            printf "[default]\naws_access_key_id = ${AWS_ACCESS_KEY_ID}\naws_secret_access_key = ${AWS_SECRET_ACCESS_KEY}\nregion = ap-northeast-1" > ~/.aws/config
-            printf "[default]\naws_access_key_id = ${AWS_ACCESS_KEY_ID}\naws_secret_access_key = ${AWS_SECRET_ACCESS_KEY}" > ~/.aws/credentials
-            chmod 600 ~/.aws/*
+      # - run:
+      #     name: Setup AWS credentials
+      #     command: |
+      #       mkdir -p ~/.aws
+      #       printf "[default]\naws_access_key_id = ${AWS_ACCESS_KEY_ID}\naws_secret_access_key = ${AWS_SECRET_ACCESS_KEY}\nregion = ap-northeast-1" > ~/.aws/config
+      #       printf "[default]\naws_access_key_id = ${AWS_ACCESS_KEY_ID}\naws_secret_access_key = ${AWS_SECRET_ACCESS_KEY}" > ~/.aws/credentials
+      #       chmod 600 ~/.aws/*
       # - deploy:
       #     name: push to S3
       #     command: |
@@ -39,7 +43,6 @@ jobs:
           command: |
               GITHUB_REPO=`echo $CIRCLE_REPOSITORY_URL | sed -e 's/git@github.com://' | sed -e 's/.git$//' `
               aws deploy create-deployment \
-                  --application-name aws-study-staticHTML \
+                  --application-name StartByCircleCI \
                   --github-location repository=${GITHUB_REPO},commitId=${CIRCLE_SHA1} \
-                  --deployment-group-name aws-study-staticHTML-deploygroup \
-                  --region us-east-2
+                  --deployment-group-name ${CIRCLE_BRANCH}-group \
