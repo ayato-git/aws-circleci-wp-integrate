@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  get_aws-cli_and_deploy:
+  build:
     branches:
       only:
         - master
