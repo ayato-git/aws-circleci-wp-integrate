@@ -46,3 +46,4 @@ jobs:
                   --application-name StartByCircleCI \
                   --github-location repository=${GITHUB_REPO},commitId=${CIRCLE_SHA1} \
                   --deployment-group-name ${CIRCLE_BRANCH}-group \
+                  --region ap-northeast-1
