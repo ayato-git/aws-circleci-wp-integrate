@@ -3,6 +3,7 @@ general:
     only:
       - master
       - staging
+      - circleci2.0
 
 machine:
   timezone:
@@ -34,8 +35,6 @@ deployment:
         deployment_config: CodeDeployDefault.OneAtATime
   staging:
     branch: staging
-    commands:
-      - echo 'here is circle.yml' >> ./checker.html
     codedeploy:
       aws-study-staticHTML:
         application_root: /
