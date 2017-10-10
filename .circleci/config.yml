@@ -6,7 +6,7 @@ jobs:
         - master
         - staging
     docker:
-      - image: circleci/php:5.6.30-apache
+      - image: amazonlinux
     working_directory: ~/circleci/
     steps:
       - checkout
